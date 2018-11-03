@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Add A Course</title>
+    </head>
+
+    <body>
+        <h1>Add a new course to the system</h1>
+        <form id="form_course" method="post">
+            <div>Hello</div>
+            <div>
+                <label for="course_Name">Course Name</label>
+                <input type="text" id="course_name" placeholder="Enter a Course Name" />
+            </div>
+
+            <div>
+                <label for="course_Name">Course Number</label>
+                <input type="text" id="course_number" placeholder="Enter a Course Number" />
+            </div>
+
+            <div>
+                <label for="semester">Semester</label>
+                <select id="semester">
+                    <option value="">Select a Semester</option>
+                    <option value="Fall2016">Fall 2016</option>
+                    <option value="Winter2016">Winter 2016</option>
+                    <option value="Spring2017">Spring 2017</option>
+                    <option value="Summer2017">Summer 2017</option>
+                    <option value="Fall2017">Fall 2017</option>
+                    <option value="Winter2017">Winter 2017</option>
+                    <option value="Spring2018">Spring 2018</option>
+                    <option value="Summer2018">Summer 2018</option>
+                    <option value="Fall2018">Fall 2018</option>
+                    <option value="Winter2018">Winter 2018</option>
+                </select>
+            </div>
+
+            <div>
+                    <label for="instructor">Instructor</label>
+                    <select id="instructor">
+                        <option value="0">Select an Instructor</option>
+                        <option value="1">Dr MacTaggert</option>
+                        <option value="2">Dr Xavier</option>
+                        <option value="3">Dr Octavius</option>
+                        <option value="4">Dr Doom</option>
+                        <option value="5">Dr Strange</option>
+                    </select>
+                </div>
+
+            <div>
+                <label for="description">Description</label>
+                <textarea id="description" rows="4" placeholder="Enter a Description"></textarea>
+            </div>
+        </form>
+    </body>
+</html>
