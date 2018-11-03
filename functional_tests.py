@@ -12,7 +12,7 @@ class NewCourseEntryTest(unittest.TestCase):
         # After Professor Xavier logs into the system he navigates to the 'add courses' page.
         self.browser.get('http://localhost:8000')
 
-        self.assertIn('Add Courses', self.browser.title)
+        self.assertIn('Add A Course', self.browser.title)
         self.fail('Finish the test!')
 
         # He sees an input form that allows him to add data about the course. 
