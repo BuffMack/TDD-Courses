@@ -1,12 +1,19 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 import unittest
 
 class NewCourseEntryTest(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
     
-    def teardDown(self):
+    def tearDown(self):
         self.browser.quit()
+
+    def check_for_new_course_in_list(self, row_text):
+        table = self.browser.find_element_by_id('course_list')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
 
     def test_form_displays_correctly(self):
         # After Professor Xavier logs into the system he navigates to the 'add courses' page.
@@ -57,7 +64,27 @@ class NewCourseEntryTest(unittest.TestCase):
         self.assertEqual(description.get_attribute('placeholder'),'Enter a Description')
 
         # A save button at the bottom adds the data to the system; a cancel button clears the form.
+
+        # Professor X adds a new class 'Intro to Computers'
+        table = self.browser.find_element_by_id('course_list')
+        course_name.send_keys('Intro to Computers')
+   
+        # When she hits enter, the page updates, and now the page lists
+        # "1: Buy peacock feathers" as an item in a to-do list
+        course_name.send_keys(Keys.ENTER)
+        self.check_for_new_course_in_list('Intro to Computers')
+
+        # There is still a text box inviting her to add another item. She
+        # enters "Use peacock feathers to make a fly" (Edith is very methodical)
+        # inputbox = self.browser.find_element_by_id('id_new_item')
+        # inputbox.send_keys('Use peacock feathers to make a fly')
+        # inputbox.send_keys(Keys.ENTER)
+
         # Once the course is added it displays in a list on the bottom.
+        # self.show_new_course_in_list('1: Buy peacock feathers')
+        # self.show_new_course_in_list('2: Use peacock feathers to make a fly')
+
+        # 
         self.fail('Finish the test!')
 
 if __name__ == '__main__':
