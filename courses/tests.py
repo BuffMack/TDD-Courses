@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 from courses.views import course_page
 from courses.models import Course
+from tkinter import *
 
 # Create your tests here.
 class AddCoursePageTest(TestCase):
@@ -61,3 +62,16 @@ class CourseModelTest(TestCase):
         second_saved_course = saved_courses[1]
         self.assertEqual(first_saved_course.course_name, 'Intro to Computers')
         self.assertEqual(second_saved_course.course_name, 'Advanced Programming')
+
+class EditCoursePageTest(TestCase):
+    def test_adding_checkbox_with_course_name_as_value(self):
+        first_course = Course()
+        first_course.course_number = 'CIDM 1000'
+        first_course.course_name = 'Intro to Computers'
+        first_course.semester = 'Spring 2017'
+        first_course.instructor = 'Dr Doom'
+        first_course.save()
+
+        self.master = Tk()
+        value1 = first_course.course_number
+        first_course_cb = Checkbutton(self.master, text="course", variable=value1)

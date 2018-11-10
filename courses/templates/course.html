@@ -59,6 +59,7 @@
         <table id="course_table" name="course_table">
             <thead>
                 <tr>
+                    <th></th>
                     <th>
                         Course Number
                     </th>
@@ -76,19 +77,27 @@
             {% for course in courses %}
             <tr>
                 <td>
+                    <input type="checkbox" id="cb_course_number" name="cb_course_number" value="{{ course.course_number }}">
+                </td>
+                <td>
                     {{ course.course_number }}
                 </td>
                 <td>
                     {{ course.course_name }}
                 </td>
                 <td>
-                        {{ course.semester }}
+                    {{ course.semester }}
                 </td>
                 <td>
-                        {{ course.instructor }}
+                    {{ course.instructor }}
                 </td>
             </tr>
             {% endfor %}
+            <tr>
+                <td>
+                    <button id="btn_course_edit" name="btn_course_edit">Edit</button>
+                </td>
+            </tr>
         </table>
     </body>
 </html>
