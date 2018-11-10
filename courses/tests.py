@@ -38,7 +38,7 @@ class AddCoursePageTest(TestCase):
         response = self.client.get('/')        
         self.assertIn('itemey 1', response.content.decode())        
         self.assertIn('itemey 2', response.content.decode())
-
+        
 class CourseModelTest(TestCase):
     def test_saving_and_retrieving_courses(self):
         first_course = Course()
