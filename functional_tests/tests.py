@@ -38,6 +38,9 @@ class NewCourseEntryTest(LiveServerTestCase):
 
                 time.sleep(0.5)
     
+    def test_layout_styling(self):
+        self.browser.get(self.live_server_url)
+
     # def test_form_displays_correctly(self):
     #     # After Professor Xavier logs into the system he navigates to the 'add courses' page.
     #     #self.browser.get('http://localhost:8000') 
@@ -143,33 +146,38 @@ class NewCourseEntryTest(LiveServerTestCase):
 
         semester2 = self.browser.find_element_by_id('semester')
         semesterOptions2 = semester2.find_elements_by_tag_name('option')
-        counter = 0
-        for option in semesterOptions2:
-            counter = counter + 1
-            print(option.get_attribute("value"))
-            if option.get_attribute('value') == courseToEdit[0]['semester']:
-                break;
-        semesterOptions2[counter].click() 
+        semesterIndex2 = self.find_option_selectedIndex(semesterOptions2, courseToEdit[0]['semester'])
+        semesterOptions2[semesterIndex2].click() 
+
         instructor2 = self.browser.find_element_by_id('instructor')
         instructorOptions2 = instructor2.find_elements_by_tag_name('option')
-        instructorOptions2[2].click() 
-        counter = 0
-        for option in instructorOptions2:
-            counter = counter + 1
-            print(option.get_attribute("value"))
-            if option.get_attribute('value') == courseToEdit[0]['instructor']:
-                break;
+        instructorIndex2 = self.find_option_selectedIndex(instructorOptions2, courseToEdit[0]['instructor'])
+        instructorOptions2[instructorIndex2].click() 
+        # instructorOptions2[2].click() 
+        # counter = 0
+        # for option in instructorOptions2:
+        #     counter = counter + 1
+        #     print(option.get_attribute("value"))
+        #     if option.get_attribute('value') == courseToEdit[0]['instructor']:
+        #         break;
         
+        # On clicking 'Add Course' again is also removed from the list until the editing is done
         course_name_3 = self.browser.find_element_by_id('course_name')
         course_name_3.clear()
         course_name_3.send_keys('Intro to Computers')
         course_name_3.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        # The course is also removed from the list until the editing is done
-
-
         self.fail('Finish the test!')
+    
+    def find_option_selectedIndex(self,options,value):
+        counter = 0
+        for option in options:
+            if option.get_attribute('value') == value:
+                return counter;
+                #break;
+            else:
+                counter = counter + 1
     
 
 
