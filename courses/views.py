@@ -5,6 +5,9 @@ from courses.models import Course
 # Create your views here.
 def course_page(request):
     if request.method == 'POST':
+        course_number_test = course_number=request.POST['course_number']
+        Course.objects.filter(course_number=course_number_test).delete()
+
         Course.objects.create(
             course_number=request.POST['course_number'],
             course_name=request.POST['course_name'],

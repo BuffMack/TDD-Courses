@@ -130,7 +130,7 @@ class NewCourseEntryTest(LiveServerTestCase):
         course_number_edit = self.browser.find_element_by_id("cb_course_number").get_attribute("value")
         btn_course_edit = self.browser.find_element_by_name('btn_course_edit')
 
-        # The form is repopulated with the values for the course that he wants to edit
+        # The form is repopulated with the values for the course that he wants to edit.
         courses = Course.objects.all()
         courseToEdit = courses.filter(course_number__startswith=course_number_edit).values()
         print(courseToEdit)
@@ -159,6 +159,15 @@ class NewCourseEntryTest(LiveServerTestCase):
             print(option.get_attribute("value"))
             if option.get_attribute('value') == courseToEdit[0]['instructor']:
                 break;
+        
+        course_name_3 = self.browser.find_element_by_id('course_name')
+        course_name_3.clear()
+        course_name_3.send_keys('Intro to Computers')
+        course_name_3.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        # The course is also removed from the list until the editing is done
+
 
         self.fail('Finish the test!')
     
