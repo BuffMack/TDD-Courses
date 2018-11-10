@@ -11,9 +11,32 @@ class AddCoursePageTest(TestCase):
         self.assertTemplateUsed(response, 'course.html')
 
     def test_can_save_a_POST_request(self):
-        response = self.client.post('/', data={'course_name': 'A New Course'})
-        self.assertIn('A New Course', response.content.decode())
-        self.assertTemplateUsed(response, 'course.html')
+        response = self.client.post('/', data={
+            'course_name': 'A New Course', 
+            'course_number': 'CIDM 3000',
+            'semester': 'Fall 2017',
+            'instructor': 'Dr Strange'
+            })
+        self.assertEqual(Course.objects.count(), 1)
+        new_course = Course.objects.first()
+        self.assertEqual(new_course.course_name, 'A New Course')      
+    
+    def test_redirects_after_POST(self):
+        response = self.client.post('/', data={
+            'course_name': 'A New Course', 
+            'course_number': 'CIDM 3000',
+            'semester': 'Fall 2017',
+            'instructor': 'Dr Strange'
+            })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+
+    def test_displays_all_list_items(self):
+        Course.objects.create(course_name='itemey 1')        
+        Course.objects.create(course_name='itemey 2')        
+        response = self.client.get('/')        
+        self.assertIn('itemey 1', response.content.decode())        
+        self.assertIn('itemey 2', response.content.decode())
 
 class CourseModelTest(TestCase):
     def test_saving_and_retrieving_courses(self):
