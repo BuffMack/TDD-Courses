@@ -1,30 +1,43 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from courses.models import Course
+import random
+import re
 
 # Create your views here.
 def course_page(request):
     if request.method == 'POST':
-        course_number_test = course_number=request.POST['course_number']
-        Course.objects.filter(course_number=course_number_test).delete()
-
-        Course.objects.create(
+        urlstring = request.build_absolute_uri()
+        # I'm not positive how to do a correct ternary statement here in python so I'm taking the long route
+        course_id_test = 0 
+        if request.POST['course_id']:
+            course_id_test = request.POST['course_id']
+        print(course_id_test)
+        if Course.objects.filter(course_id=course_id_test).exists():
+            Course.objects.filter(course_id=course_id_test).update(
             course_number=request.POST['course_number'],
             course_name=request.POST['course_name'],
             semester=request.POST['semester'],
             instructor=request.POST['instructor'])
-        # print('Course Name: ')
-        # print(request.POST['course_name'])
+        else:
+            Course.objects.create(
+                course_id = random.randint(10000,99999),
+                course_number=request.POST['course_number'],
+                course_name=request.POST['course_name'],
+                semester=request.POST['semester'],
+                instructor=request.POST['instructor'])
         return redirect('/')
-
+    
+    course = Course()
     courses = Course.objects.all()
-    # print(courses)
-    return render(request, 'course.html', {'courses': courses})
+    course_id_edit = 0
 
+    if request.method == 'GET':
+        if request.GET.get('id') is not None:
+            course_id_edit = request.GET.get('id')
 
-    #      return HttpResponse(request.POST['course_name'])
-    # return render(request, 'course.html')
-    # return render(request, 'course.html', {        
-    #     'new_course_name': courses[0].course_name,
-    # })
+        course = Course.objects.filter(course_id=course_id_edit).first()
+
+    return render(request, 'course.html', {'courses': courses, 'course': course})
+
 

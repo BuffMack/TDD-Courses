@@ -5,6 +5,7 @@ class CourseList(models.Model):
     pass
 
 class Course(models.Model):
+    course_id = models.IntegerField(default=0)
     course_name = models.TextField()
     course_number = models.TextField(default='')
     semester = models.TextField(default='')

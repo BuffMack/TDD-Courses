@@ -28,52 +28,58 @@
                 <div class="card-body">
                     <form id="form_course" method="POST">
                         <div class="row" style="padding-bottom: 10px;">
+                            <div class="col-md-12">
+                                <div class="control-label"><strong>ID</strong></div>
+                                <input type="input" id="course_id" name="course_id" class="form-control" value="{{course.course_id}}" style="width: 100px"/>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom: 10px;">
                             <div class="col-md-6">
                                 <div>
                                     <div class="control-label"><strong>Course Number</strong></div>
-                                    <input type="text" name="course_number" id="course_number" class="form-control" placeholder="Enter a Course Number" />
+                                    <input type="text" name="course_number" id="course_number" class="form-control" value="{{ course.course_number}}" placeholder="Enter a Course Number" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div>
                                     <div class="control-label"><strong>Course Name</strong></div>
-                                    <input type="text" name="course_name" id="course_name" class="form-control" placeholder="Enter a Course Name" />
+                                    <input type="text" name="course_name" id="course_name" class="form-control" value="{{ course.course_name}}" placeholder="Enter a Course Name" />
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="padding-bottom: 10px;">
+                        <div class="row" style="padding-bottom: 15px;">
                             <div class="col-md-6">
                                 <div class="control-label"><strong>Semester</strong></div>
                                 <select name="semester" id="semester" class="form-control">
                                     <option value="">Select a Semester</option>
-                                    <option value="Fall 2016">Fall 2016</option>
-                                    <option value="Winter 2016">Winter 2016</option>
-                                    <option value="Spring 2017">Spring 2017</option>
-                                    <option value="Summer 2017">Summer 2017</option>
-                                    <option value="Fall 2017">Fall 2017</option>
-                                    <option value="Winter 2017">Winter 2017</option>
-                                    <option value="Spring 2018">Spring 2018</option>
-                                    <option value="Summer 2018">Summer 2018</option>
-                                    <option value="Fall 2018">Fall 2018</option>
-                                    <option value="Winter 2018">Winter 2018</option>
+                                    <option value="Fall 2016" {% if course.semester == 'Fall 2016' %}selected{% endif %}>Fall 2016</option>
+                                    <option value="Winter 2016" {% if course.semester == 'Winter 2016' %}selected{% endif %}>Winter 2016</option>
+                                    <option value="Spring 2017" {% if course.semester == 'Spring 2017' %}selected{% endif %}>Spring 2017</option>
+                                    <option value="Summer 2017" {% if course.semester == 'Summer 2017' %}selected{% endif %}>Summer 2017</option>
+                                    <option value="Fall 2017" {% if course.semester == 'Fall 2017' %}selected{% endif %}>Fall 2017</option>
+                                    <option value="Winter 2017" {% if course.semester == 'Winter 2017' %}selected{% endif %}>Winter 2017</option>
+                                    <option value="Spring 2018" {% if course.semester == 'Spring 2018' %}selected{% endif %}>Spring 2018</option>
+                                    <option value="Summer 2018" {% if course.semester == 'Summer 2018' %}selected{% endif %}>Summer 2018</option>
+                                    <option value="Fall 2018" {% if course.semester == 'Fall 2018' %}selected{% endif %}>Fall 2018</option>
+                                    <option value="Winter 2018" {% if course.semester == 'Winter 2018' %}selected{% endif %}>Winter 2018</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <div class="control-label"><strong>Instructor</strong></div>
                                 <select name="instructor" id="instructor" class="form-control">
                                     <option value="0">Select an Instructor</option>
-                                    <option value="Dr MacTaggert">Dr MacTaggert</option>
-                                    <option value="Prof Xavier">Prof Xavier</option>
-                                    <option value="Dr Octavius">Dr Octavius</option>
-                                    <option value="Dr Doom">Dr Doom</option>
-                                    <option value="Dr Strange">Dr Strange</option>
+                                    <option value="Dr MacTaggert" {% if course.instructor == 'Dr MacTaggert' %}selected{% endif %}>Dr MacTaggert</option>
+                                    <option value="Prof Xavier" {% if course.instructor == 'Dr Xavier' %}selected{% endif %}>Prof Xavier</option>
+                                    <option value="Dr Octavius" {% if course.instructor == 'Dr Octavius' %}selected{% endif %}>Dr Octavius</option>
+                                    <option value="Dr Doom" {% if course.instructor == 'Dr Doom' %}selected{% endif %}>Dr Doom</option>
+                                    <option value="Dr Strange" {% if course.instructor == 'Dr Strange' %}selected{% endif %}>Dr Strange</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <input type="submit" value="Add Course" class="btn btn-danger" />
+                                <input type="submit" value="Submit Course Details" class="btn btn-danger" />
                             </div>
                         </div>
                 
@@ -85,7 +91,7 @@
                 <table id="course_table" name="course_table" class="table table-hover">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>ID</th>
                             <th>
                                 Course Number
                             </th>
@@ -98,32 +104,32 @@
                             <th>
                                 Instructor
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
                     {% for course in courses %}
-                    <tr>
-                        <td>
-                            <input type="checkbox" id="cb_course_number" name="cb_course_number" value="{{ course.course_number }}">
-                        </td>
-                        <td>
-                            {{ course.course_number }}
-                        </td>
-                        <td>
-                            {{ course.course_name }}
-                        </td>
-                        <td>
-                            {{ course.semester }}
-                        </td>
-                        <td>
-                            {{ course.instructor }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                {{ course.course_id }}
+                                <!-- <input type="checkbox" id="cb_course_number" name="cb_course_number" value="{{ course.course_number }}"> -->
+                            </td>
+                            <td>
+                                {{ course.course_number }}
+                            </td>
+                            <td>
+                                {{ course.course_name }}
+                            </td>
+                            <td>
+                                {{ course.semester }}
+                            </td>
+                            <td>
+                                {{ course.instructor }}
+                            </td>
+                            <td>
+                                <a id="course_edit_id" href="?id={{ course.course_id }}">Edit</a>
+                            </td>
+                        </tr>
                     {% endfor %}
-                    <tr>
-                        <td>
-                            <button id="btn_course_edit" name="btn_course_edit" class="btn btn-danger">Edit</button>
-                        </td>
-                    </tr>
                 </table>
             </div>
 

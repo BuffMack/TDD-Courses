@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from courses.views import course_page
 from courses.models import Course
 from tkinter import *
+import re
 
 # Create your tests here.
 class AddCoursePageTest(TestCase):
@@ -13,6 +14,7 @@ class AddCoursePageTest(TestCase):
 
     def test_can_save_a_POST_request(self):
         response = self.client.post('/', data={
+            'course_id': 1234,
             'course_name': 'A New Course', 
             'course_number': 'CIDM 3000',
             'semester': 'Fall 2017',
@@ -24,6 +26,7 @@ class AddCoursePageTest(TestCase):
     
     def test_redirects_after_POST(self):
         response = self.client.post('/', data={
+            'course_id': 1234,
             'course_name': 'A New Course', 
             'course_number': 'CIDM 3000',
             'semester': 'Fall 2017',
@@ -89,3 +92,8 @@ class EditCoursePageTest(TestCase):
         self.master = Tk()
         value1 = first_course.course_number
         first_course_cb = Checkbutton(self.master, text="course", variable=value1)
+    
+    def text_can_get_id_from_url(self):
+        urlstring = '/courses/1234'
+        id = re.findall('\d+', urlstring)
+        self.assertEqual(id, 1234)
